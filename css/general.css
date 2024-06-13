@@ -57,13 +57,13 @@ footer{
 
 @media screen and (max-width: 600px) {
     .topnav a, .topnav button {
-        padding: 10px 12px;
-        font-size: 14px;
+        padding: 10px 8px;
+        font-size: 12px;
     }
     #signout_button {
         margin-top:3px;
         padding: 4px;
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 
