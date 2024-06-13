@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
@@ -10,20 +15,16 @@
         <link rel="stylesheet" href="css/general.css">
         <style>
             body {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-                background: url('images/back.jpeg') no-repeat center center fixed;
+                background: url('back.jpeg') no-repeat center center fixed;
                 background-size: cover;
-                margin: 0;
-                padding: 0;
             }
             .container {
-                flex: 1;
-                max-width: 90%;
-                margin: 3% auto;
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
                 border-radius: 8px;
-                height: 85vh;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
             h1 {
                 text-align: center;
@@ -39,21 +40,26 @@
                 text-align: right;
                 color: #777;
             }
+
             .container-fluid {
                 padding: 30px 50px;
             }
+
             .panel {
                 border-radius: 30px 30px 0px 0px !important;
                 transition: box-shadow 0.5s;
             }
+
             .panel:hover {
                 box-shadow: 0px 0px 40px rgba(0, 0, 0, .2);
             }
+
             .panel-footer .btn:hover {
                 border: 1px solid #000000;
                 background-color: #770737 !important;
                 color: #F3CFC6;
             }
+
             .panel-heading {
                 color: #620021 !important;
                 background-color: #F8C8DC !important;
@@ -61,24 +67,24 @@
                 border-bottom: 0px solid transparent;
                 border-radius: 30px 30px 0px 0px;
             }
+
             .panel-footer {
                 background-color: white !important;
             }
+
             .panel-footer .btn {
                 margin: 15px 0;
                 background-color: #FBCEB1;
                 color: #620021;
             }
-            footer {
-                padding: 1rem;
-                text-align: center;
-            }
+
             @media screen and (max-width: 768px) {
                 .col-sm-4 {
                     text-align: center;
                     text-size-adjust: 50px;
                     margin: 25px 0;
                 }
+
                 .btn-lg {
                     width: 100%;
                     margin-bottom: 35px;
@@ -86,85 +92,21 @@
             }
         </style>
     </head>
+    <header>
+        <div class="topnav">
+            <a class="active" href="Home.html">HOME</a>
+            <a href="addTask.html">TASK</a>
+            <a href="calendar.html">CALENDAR</a>
+            <a href="weather.html">WEATHER</a>
+            <button id="signout_button">Sign Out</button>
+        </div>
+    </header>
     <body>
-        <header>
-            <div class="topnav">
-                <a class="active" href="Home.jsp">HOME</a>
-                <a href="addTask.html">TASK</a>
-                <a href="calendar.html">CALENDAR</a>
-                <a href="weather.html">WEATHER</a>
-                <button id="signout_button">Sign Out</button>
-            </div>
-        </header>
-        <div class="container">
+        <div class="container-fluid">
             <h1 style="font-size: 48px; margin: 0;">Welcome Dear Master Planner!</h1>
-            <%
-                // Define the API endpoint and the category parameter
-                String category = "happiness"; // You can change this to any valid category
-                String apiUrl = "https://api.api-ninjas.com/v1/quotes?category=" + category;
-
-                // Define your API key
-                String apiKey = "w9JNrP28XcQy1sIYso6FuvoikrmgBZklme6QCyDe"; // Replace with your actual API key
-
-                try {
-                    // Create the URL object
-                    URL url = new URL(apiUrl);
-
-                    // Open the connection
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setRequestProperty("X-Api-Key", apiKey);
-                    connection.setRequestProperty("accept", "application/json");
-
-                    // Get the response code
-                    int responseCode = connection.getResponseCode();
-
-                    if (responseCode == HttpURLConnection.HTTP_OK) { // HTTP 200 OK
-                        // Read the response
-                        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                        String inputLine;
-                        StringBuilder content = new StringBuilder();
-
-                        while ((inputLine = in.readLine()) != null) {
-                            content.append(inputLine);
-                        }
-
-                        // Close the connections
-                        in.close();
-                        connection.disconnect();
-
-                        // Parse the JSON response manually
-                        String jsonResponse = content.toString();
-
-                        // Extract fields from JSON
-                        String quoteStartTag = "\"quote\": \"";
-                        String authorStartTag = "\"author\": \"";
-                        String categoryStartTag = "\"category\": \"";
-
-                        int quoteStartIndex = jsonResponse.indexOf(quoteStartTag) + quoteStartTag.length();
-                        int quoteEndIndex = jsonResponse.indexOf("\"", quoteStartIndex);
-                        String quote = jsonResponse.substring(quoteStartIndex, quoteEndIndex);
-
-                        int authorStartIndex = jsonResponse.indexOf(authorStartTag) + authorStartTag.length();
-                        int authorEndIndex = jsonResponse.indexOf("\"", authorStartIndex);
-                        String author = jsonResponse.substring(authorStartIndex, authorEndIndex);
-
-                        int categoryStartIndex = jsonResponse.indexOf(categoryStartTag) + categoryStartTag.length();
-                        int categoryEndIndex = jsonResponse.indexOf("\"", categoryStartIndex);
-                        String quoteCategory = jsonResponse.substring(categoryStartIndex, categoryEndIndex);
-
-            %>
             <h4 style="font-size: 24px"><strong>Here is your quote of the day!</strong></h4><br>
-            <p style="font-size: 18px" class="quote"><strong>Quote:</strong> <%= quote %></p>
-            <p style="font-size: 14px" class="author"><strong>Author:</strong> <%= author %></p><br>
-            <%
-                    } else {
-                        out.println("<p>Failed to get a quote. HTTP response code: " + responseCode + "</p>");
-                    }
-                } catch (Exception e) {
-                    out.println("<p>Error: " + e.getMessage() + "</p>");
-                }
-            %>
+            <p style="font-size: 18px" class="quote" id="quote"><strong>Quote:</strong> Loading...</p>
+            <p style="font-size: 14px" class="author" id="author"><strong>Author:</strong> Loading...</p><br>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
@@ -174,7 +116,7 @@
                             </div>
                             <div class="panel-body">
                                 <h4>Let's transform your ambitions into actions.
-                                    Harness the power of today to build the future you desire. Let's make it productive!
+                                    Harness the power of today to build the future you desire. Let's make it productive!.
                                 </h4>
                             </div>
                             <div class="panel-footer">
@@ -182,6 +124,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="panel panel-default text-center">
                             <div class="panel-heading">
@@ -189,8 +132,7 @@
                             </div>
                             <div class="panel-body">
                                 <h4>Insight into the weather helps you plan perfectly.
-                                    Embrace today's weather forecast to navigate your plans smoothly and efficiently.
-                                </h4>
+                                    Embrace today's weather forecast to navigate your plans smoothly and efficiently.</h4>
                             </div>
                             <div class="panel-footer">
                                 <a href="weather.html" class="btn btn-lg">Forecast Weather Here!</a>
@@ -204,9 +146,32 @@
             document.getElementById('signout_button').onclick = function () {
                 window.location.href = "index.html";
             };
+
+            // Fetch the quote using JavaScript
+            const apiUrl = "https://api.api-ninjas.com/v1/quotes?category=happiness";
+            const apiKey = "w9JNrP28XcQy1sIYso6FuvoikrmgBZklme6QCyDe"; // Replace with your actual API key
+
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'X-Api-Key': apiKey,
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const quoteData = data[0]; // Assuming the response is an array
+                document.getElementById('quote').innerHTML = `<strong>Quote:</strong> ${quoteData.quote}`;
+                document.getElementById('author').innerHTML = `<strong>Author:</strong> ${quoteData.author}`;
+            })
+            .catch(error => {
+                console.error('Error fetching the quote:', error);
+                document.getElementById('quote').innerHTML = `<strong>Quote:</strong> Failed to load quote.`;
+                document.getElementById('author').innerHTML = `<strong>Author:</strong> N/A`;
+            });
         </script>
-        <footer>
-            <p>&copy; DailyPlanner-2024</p>
-        </footer>
     </body>
+    <footer>
+         <p>&copy;Daily Planner-2024</p>
+    </footer>
 </html>
