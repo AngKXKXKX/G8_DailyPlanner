@@ -16,7 +16,7 @@
                 background-size: cover;
                 height:fit-content;
             }
-            
+
             footer{
                 bottom:0px;
                 width:100%;
@@ -26,40 +26,44 @@
             footer p{
                 margin:5px;
             }
-            
+
             .container {
                 display: flex;
                 justify-content: space-between;
                 height: fit-content;
                 align-items: center;
                 min-height:90vh;
-                margin:3% auto;    
+                margin:3% auto;
             }
-            
+
             h3{
                 font-family: 'Roboto', sans-serif;
             }
-            
+
             .event {
-                width: 15%;
+                width: 18%;
                 border-right: 4px solid #ccc;
                 border-bottom: 4px solid #ccc;
                 padding: 30px;
                 background: rgba(239, 239, 239, 0.8);
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
                 border-radius: 20px;
-                margin-left: 50px;
+                margin:auto;
                 position: relative;
             }
-            
-            
+            #create-event-form{
+                margin:auto;
+                text-align: center;
+            }
+
             #create-event-form label {
                 font-family: 'Roboto', sans-serif;
                 display: block;
                 margin-bottom: 2px;
                 font-weight: bold;
                 position: relative;
-                left: 20px;
+                text-align: left;
+                left:10px;
             }
 
             #create-event-form input, #create-event-form textarea, #create-event-form button {
@@ -69,7 +73,6 @@
                 border-radius: 4px;
                 border: 1px solid #ddd;
                 position: relative;
-                left: 20px;
             }
 
             #create-event-form textarea {
@@ -82,35 +85,79 @@
                 border: 2px solid black;
                 cursor: pointer;
                 position: relative;
-                left: 25px;
             }
 
             #create-event-form button:hover {
                 background-color: grey;
             }
 
-            
+
             .calendar {
                 width: 70%;
-                padding: 0px 20px 0px 20px;
+                padding: 0px 20px 0px 10px;
             }
-            
+
             h2 {
                 font-family: 'Raleway', sans-serif;
                 font-size: 20px;
             }
-            
+
             .calendar-iframe {
                 border: 0;
                 width: 100%;
                 height: 500px;
             }
-            
+            @media screen and (max-width: 768px) {
+                .event {
+                    width: 20%;
+                    padding: 10px;
+                }
+                .event h3{
+                    font-size:16px;
+                }
+                #create-event-form label {
+                    left:10px;
+                    font-size:14px;
+                    left:5px;
+                }
+
+                #create-event-form input, #create-event-form textarea, #create-event-form button {
+                    width: 90%;
+                    font-size:14px;
+
+                }
+
+            }
+            @media screen and (max-width: 480px) {
+                .container {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .event, .calendar {
+                    width: 100%;
+                    max-width: 100%;
+                    margin-bottom: 20px;
+                }
+                .event{
+                    width:80%;
+                    margin: auto;
+                }
+                .calendar h2{
+                    padding-left:5%;
+                }
+
+                .calendar-iframe {
+                    height: 400px;
+                }
+
+            }
+
         </style>
     </head>
     <header>
-         <div class="topnav">
-            <a href="Home.html">HOME</a>
+        <div class="topnav">
+            <a href="Home.jsp">HOME</a>
             <a href="addTask.html">TASK</a>
             <a class="active" href="calendar.html">CALENDAR</a>
             <a href="weather.html">WEATHER</a>
@@ -140,7 +187,7 @@
                     <button type="submit">Create Event</button>
                 </form>
             </div>
-            
+
             <div class="calendar">
                 <h2>Calendar Events</h2>
                 <iframe id="calendar-iframe" class="calendar-iframe" frameborder="0" scrolling="no"></iframe>
